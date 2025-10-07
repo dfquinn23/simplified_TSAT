@@ -1,0 +1,10 @@
+# Tech Stack Audit Tool - Environment Configuration
+# Copy this file to .env and add your actual API key
+
+# Required: OpenAI API Configuration
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL=gpt-4
+
+# Optional: Alternative models you can try
+# OPENAI_MODEL=gpt-4-turbo
+# OPENAI_MODEL=gpt-3.5-turbo  # Faster, less expensive, but lower quality

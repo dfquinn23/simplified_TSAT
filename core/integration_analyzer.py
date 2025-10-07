@@ -17,29 +17,29 @@ class IntegrationAnalyzer:
     CrewAI-powered integration analyzer
     Identifies automation opportunities across the complete tool stack
     """
-    
+
     def __init__(self):
         self.llm = ChatOpenAI(
-            model=os.getenv("OPENAI_MODEL", "gpt-4"),
-            temperature=0.3
+            model=os.getenv("OPENAI_MODEL", "gpt-5"),
+            temperature=1  # GPT-5 only supports temperature=1
         )
-    
+
     async def analyze_stack(
-        self, 
-        enriched_tools: List[Dict[str, Any]], 
+        self,
+        enriched_tools: List[Dict[str, Any]],
         client_name: str
     ) -> List[Dict[str, Any]]:
         """
         Analyze complete tool stack for integration opportunities
-        
+
         Args:
             enriched_tools: List of tools with research data
             client_name: Name of client
-            
+
         Returns:
             List of integration opportunities with n8n workflow specs
         """
-        
+
         # Create the integration analyst agent
         analyst = Agent(
             role="Integration Automation Specialist",
@@ -52,10 +52,10 @@ class IntegrationAnalyzer:
             llm=self.llm,
             verbose=True
         )
-        
+
         # Prepare context for the agent
         context = self._prepare_context(enriched_tools, client_name)
-        
+
         # Create analysis task
         analysis_task = Task(
             description=f"""Analyze {client_name}'s complete technology stack and identify automation opportunities.
@@ -88,85 +88,90 @@ Output format: Return a detailed analysis with at least 3-5 opportunities, ranke
             agent=analyst,
             expected_output="A structured list of automation opportunities with n8n implementation details"
         )
-        
+
         # Run the analysis
         crew = Crew(
             agents=[analyst],
             tasks=[analysis_task],
             verbose=True
         )
-        
+
         result = crew.kickoff()
-        
+
         # Parse the result into structured opportunities
         opportunities = self._parse_opportunities(result, enriched_tools)
-        
+
         return opportunities
-    
+
     def _prepare_context(
-        self, 
-        enriched_tools: List[Dict[str, Any]], 
+        self,
+        enriched_tools: List[Dict[str, Any]],
         client_name: str
     ) -> str:
         """Prepare formatted context for the agent"""
-        
+
         context_parts = [f"Client: {client_name}\n"]
         context_parts.append(f"Total tools in stack: {len(enriched_tools)}\n")
         context_parts.append("\nTOOL INVENTORY WITH RECENT UPDATES:\n")
         context_parts.append("=" * 60 + "\n")
-        
+
         for tool in enriched_tools:
             context_parts.append(f"\n{tool['name']}")
             context_parts.append(f"\n  Category: {tool['category']}")
             context_parts.append(f"\n  Type: {tool['type']}")
             context_parts.append(f"\n  Used by: {', '.join(tool['users'])}")
             context_parts.append(f"\n  Criticality: {tool['criticality']}")
-            
+
             # Add research findings
             research = tool.get('research_result', {})
             if research.get('success'):
-                context_parts.append(f"\n  Updates found: {len(tool.get('analyzed_updates', []))}")
-                
+                context_parts.append(
+                    f"\n  Updates found: {len(tool.get('analyzed_updates', []))}")
+
                 # Add key automation features
                 updates = tool.get('analyzed_updates', [])
                 automation_updates = [
-                    u for u in updates 
+                    u for u in updates
                     if u.get('automation_potential', 'low') in ['high', 'medium']
                 ]
-                
+
                 if automation_updates:
                     context_parts.append(f"\n  Key automation features:")
                     for update in automation_updates[:3]:  # Top 3
-                        context_parts.append(f"\n    - {update.get('feature_name', 'Unknown')}")
-                        context_parts.append(f"\n      Value: {update.get('automation_value', 'N/A')}")
-                
+                        context_parts.append(
+                            f"\n    - {update.get('feature_name', 'Unknown')}")
+                        context_parts.append(
+                            f"\n      Value: {update.get('automation_value', 'N/A')}")
+
                 # Add API info
                 if research.get('has_api'):
-                    context_parts.append(f"\n  ✅ API Available: {research.get('api_type', 'REST')}")
+                    context_parts.append(
+                        f"\n  ✅ API Available: {research.get('api_type', 'REST')}")
                 else:
                     context_parts.append(f"\n  ⚠️  API status unknown")
             else:
-                context_parts.append(f"\n  Research incomplete: {research.get('error', 'Unknown')}")
-            
+                context_parts.append(
+                    f"\n  Research incomplete: {research.get('error', 'Unknown')}")
+
             context_parts.append("\n" + "-" * 60)
-        
+
         return "".join(context_parts)
-    
+
     def _parse_opportunities(
-        self, 
-        crew_result: Any, 
+        self,
+        crew_result: Any,
         enriched_tools: List[Dict[str, Any]]
     ) -> List[Dict[str, Any]]:
         """
         Parse CrewAI result into structured opportunities
-        
+
         Note: This is a simple parser. In production, you might want
         to ask the agent to output JSON for easier parsing.
         """
-        
+
         # For now, extract the raw text output
         result_text = str(crew_result)
-        
+
         # Create a structured summary
         # This is simplified - you may want to enhance parsing
         opportunities = [{
@@ -174,15 +179,15 @@ Output format: Return a detailed analysis with at least 3-5 opportunities, ranke
             'tool_count': len(enriched_tools),
             'tools_analyzed': [t['name'] for t in enriched_tools]
         }]
-        
+
         # TODO: Enhanced parsing to extract individual opportunities
         # For now, the report writer will work with the raw analysis
-        
+
         return opportunities
 
 
 def analyze_integration_opportunities(
-    enriched_tools: List[Dict[str, Any]], 
+    enriched_tools: List[Dict[str, Any]],
     client_name: str
 ) -> List[Dict[str, Any]]:
     """
@@ -190,9 +195,9 @@ def analyze_integration_opportunities(
     Can be called synchronously
     """
     import asyncio
-    
+
     analyzer = IntegrationAnalyzer()
-    
+
     # Run async function in sync context
     if asyncio.get_event_loop().is_running():
         # Already in async context

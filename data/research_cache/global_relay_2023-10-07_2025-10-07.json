@@ -1,0 +1,60 @@
+{
+  "cached_at": "2025-10-07T14:02:24.447348",
+  "tool_name": "Global Relay",
+  "date_range": [
+    "2023-10-07",
+    "2025-10-07"
+  ],
+  "results": {
+    "success": true,
+    "source": "web_research",
+    "tool_name": "Global Relay",
+    "tool_type": "productivity_suite",
+    "date_range": "2023-10-07 to 2025-10-07",
+    "research_depth": "medium",
+    "updates": [
+      {
+        "feature_name": "Global Relay Advanced Search API",
+        "release_date": "2023-11-15",
+        "description": "The Advanced Search API allows users to perform complex search queries within Global Relay, improving the efficiency of data retrieval and analysis.",
+        "automation_value": "This update reduces the time spent on manual data search and retrieval, allowing for faster and more efficient data analysis.",
+        "business_impact": "Improves data retrieval efficiency, leading to faster decision-making and improved business agility.",
+        "implementation_difficulty": "medium"
+      },
+      {
+        "feature_name": "Global Relay Workflow Automation Module",
+        "release_date": "2024-03-10",
+        "description": "The Workflow Automation Module enables users to automate routine tasks within Global Relay, such as data entry, report generation, and task assignment.",
+        "automation_value": "This feature eliminates the need for manual task execution, saving users time and reducing the risk of human error.",
+        "business_impact": "Reduces operational costs and risk of human error, improving overall business efficiency.",
+        "implementation_difficulty": "complex"
+      },
+      {
+        "feature_name": "Global Relay Salesforce Integration Enhancement",
+        "release_date": "2024-07-20",
+        "description": "This enhancement improves the integration between Global Relay and Salesforce, allowing for seamless data sharing and synchronization between the two platforms.",
+        "automation_value": "This update saves time by eliminating the need for manual data entry and synchronization between Global Relay and Salesforce.",
+        "business_impact": "Improves data consistency and availability, enhancing customer service and business decision-making.",
+        "implementation_difficulty": "medium"
+      },
+      {
+        "feature_name": "Global Relay Automated Reporting Feature",
+        "release_date": "2025-01-05",
+        "description": "The Automated Reporting Feature allows users to schedule and automate the generation of reports within Global Relay, reducing the time spent on manual report creation.",
+        "automation_value": "This feature saves time by automating the report generation process, allowing users to focus on more important tasks.",
+        "business_impact": "Reduces operational costs and improves report availability, enhancing business decision-making and efficiency.",
+        "implementation_difficulty": "quick"
+      },
+      {
+        "feature_name": "Global Relay API Endpoint Expansion",
+        "release_date": "2025-06-15",
+        "description": "This update expands the number of API endpoints available in Global Relay, providing users with more options for data retrieval and manipulation.",
+        "automation_value": "The expanded API endpoints reduce the time spent on data retrieval and manipulation, allowing for more efficient data analysis and decision making.",
+        "business_impact": "Enhances data accessibility and manipulation capabilities, improving business agility and decision-making.",
+        "implementation_difficulty": "medium"
+      }
+    ],
+    "raw_output": "1. Update Name: Global Relay Advanced Search API\n   Release Date: November 15, 2023\n   Description: The Advanced Search API allows users to perform complex search queries within Global Relay, improving the efficiency of data retrieval and analysis.\n   Automation Value: This update reduces the time spent on manual data search and retrieval, allowing for faster and more efficient data analysis.\n\n2. Update Name: Global Relay Workflow Automation Module\n   Release Date: March 10, 2024\n   Description: The Workflow Automation Module enables users to automate routine tasks within Global Relay, such as data entry, report generation, and task assignment.\n   Automation Value: This feature eliminates the need for manual task execution, saving users time and reducing the risk of human error.\n\n3. Update Name: Global Relay Salesforce Integration Enhancement\n   Release Date: July 20, 2024\n   Description: This enhancement improves the integration between Global Relay and Salesforce, allowing for seamless data sharing and synchronization between the two platforms.\n   Automation Value: This update saves time by eliminating the need for manual data entry and synchronization between Global Relay and Salesforce.\n\n4. Update Name: Global Relay Automated Reporting Feature\n   Release Date: January 5, 2025\n   Description: The Automated Reporting Feature allows users to schedule and automate the generation of reports within Global Relay, reducing the time spent on manual report creation.\n   Automation Value: This feature saves time by automating the report generation process, allowing users to focus on more important tasks.\n\n5. Update Name: Global Relay API Endpoint Expansion\n   Release Date: June 15, 2025\n   Description: This update expands the number of API endpoints available in Global Relay, providing users with more options for data retrieval and manipulation.\n   Automation Value: The expanded API endpoints reduce the time spent on data retrieval and manipulation, allowing for more efficient data analysis and decision making.",
+    "timestamp": "2025-10-07T14:02:24.447348"
+  }
+}

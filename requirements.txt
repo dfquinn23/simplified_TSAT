@@ -13,3 +13,22 @@ openai==1.30.1
 # Async support
 aiohttp==3.9.5
 asyncio==3.4.3
+
+# Core dependencies
+python-dotenv==1.0.0
+pandas==2.1.0
+
+# CrewAI and LangChain
+crewai==0.28.8
+langchain==0.1.20
+langchain-openai==0.1.7
+
+# OpenAI
+openai==1.30.1
+
+# Async support
+aiohttp==3.9.5
+asyncio==3.4.3
+
+# Web Interface
+streamlit==1.28.0

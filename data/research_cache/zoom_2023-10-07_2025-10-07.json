@@ -1,0 +1,16 @@
+{
+  "cached_at": "2025-10-07T13:56:25.762944",
+  "tool_name": "Zoom",
+  "date_range": [
+    "2023-10-07",
+    "2025-10-07"
+  ],
+  "results": {
+    "success": true,
+    "source": "api",
+    "tool_name": "Zoom",
+    "endpoint": "https://developers.zoom.us/changelog",
+    "updates_found": [],
+    "note": "API integration not yet implemented - use web research"
+  }
+}

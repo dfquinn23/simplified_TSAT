@@ -1,0 +1,16 @@
+{
+  "cached_at": "2025-10-07T10:33:58.113111",
+  "tool_name": "Charles Schwab",
+  "date_range": [
+    "2023-10-07",
+    "2025-10-07"
+  ],
+  "results": {
+    "success": true,
+    "source": "api",
+    "tool_name": "Charles Schwab",
+    "endpoint": "https://advisorservices.schwab.com/updates",
+    "updates_found": [],
+    "note": "API integration not yet implemented - use web research"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "cached_at": "2025-10-07T10:33:57.099242",
+  "tool_name": "ADP Workforce Now",
+  "date_range": [
+    "2023-10-07",
+    "2025-10-07"
+  ],
+  "results": {
+    "success": true,
+    "source": "api",
+    "tool_name": "ADP Workforce Now",
+    "endpoint": "https://www.adp.com/resources/articles-and-insights/product-updates.aspx",
+    "updates_found": [],
+    "note": "API integration not yet implemented - use web research"
+  }
+}

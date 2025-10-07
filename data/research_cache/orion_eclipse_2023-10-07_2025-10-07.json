@@ -1,0 +1,16 @@
+{
+  "cached_at": "2025-10-07T10:33:07.635251",
+  "tool_name": "Orion Eclipse",
+  "date_range": [
+    "2023-10-07",
+    "2025-10-07"
+  ],
+  "results": {
+    "success": true,
+    "source": "api",
+    "tool_name": "Orion Eclipse",
+    "endpoint": "https://support.orionadvisor.com/support/solutions/folders/9000211932",
+    "updates_found": [],
+    "note": "API integration not yet implemented - use web research"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "cached_at": "2025-10-07T10:33:08.639450",
+  "tool_name": "Redtail CRM",
+  "date_range": [
+    "2023-10-07",
+    "2025-10-07"
+  ],
+  "results": {
+    "success": true,
+    "source": "api",
+    "tool_name": "Redtail CRM",
+    "endpoint": "https://api.redtailtechnology.com/changelog",
+    "updates_found": [],
+    "note": "API integration not yet implemented - use web research"
+  }
+}

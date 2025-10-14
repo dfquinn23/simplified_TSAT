@@ -1,0 +1,16 @@
+{
+  "cached_at": "2025-10-13T12:49:25.855793",
+  "tool_name": "Fidelity Institutional",
+  "date_range": [
+    "2023-10-13",
+    "2025-10-13"
+  ],
+  "results": {
+    "success": true,
+    "source": "api",
+    "tool_name": "Fidelity Institutional",
+    "endpoint": "https://institutional.fidelity.com/app/news-and-insights/updates",
+    "updates_found": [],
+    "note": "API integration not yet implemented - use web research"
+  }
+}

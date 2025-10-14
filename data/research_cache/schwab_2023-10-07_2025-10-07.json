@@ -1,0 +1,52 @@
+{
+  "cached_at": "2025-10-07T14:30:17.275856",
+  "tool_name": "Schwab",
+  "date_range": [
+    "2023-10-07",
+    "2025-10-07"
+  ],
+  "results": {
+    "success": true,
+    "source": "web_research",
+    "tool_name": "Schwab",
+    "tool_type": "custodial",
+    "date_range": "2023-10-07 to 2025-10-07",
+    "research_depth": "medium",
+    "updates": [
+      {
+        "feature_name": "Schwab Intelligent Portfolios API v2.3",
+        "release_date": "2023-11",
+        "description": "The new API version provides an enhanced ability to automate portfolio management tasks. It includes new endpoints for portfolio rebalancing, tax-loss harvesting, and automatic dividend reinvestment.",
+        "automation_value": "This update can save time and reduce manual work by automating complex portfolio management tasks. It can also help to improve investment outcomes by enabling more timely and precise portfolio adjustments.",
+        "business_impact": "Improves investment outcomes, saves time, and reduces manual work.",
+        "implementation_difficulty": "medium"
+      },
+      {
+        "feature_name": "Schwab Advisor Center Workflow Automation",
+        "release_date": "2024-03",
+        "description": "This feature enables advisors to automate routine tasks such as client onboarding, account opening, and compliance checks. It includes a visual workflow builder that allows users to design and implement custom workflows.",
+        "automation_value": "By automating routine tasks, this feature can save advisors significant time and reduce the risk of errors. It can also improve client service by ensuring that tasks are completed promptly and consistently.",
+        "business_impact": "Improves client service, saves time, and reduces the risk of errors.",
+        "implementation_difficulty": "medium"
+      },
+      {
+        "feature_name": "Schwab Integration with Salesforce CRM",
+        "release_date": "2024-07",
+        "description": "This integration allows advisors to access Schwab account information directly from Salesforce, eliminating the need to switch between systems. It also enables automatic data synchronization between Schwab and Salesforce.",
+        "automation_value": "This integration can save time and reduce manual work by eliminating the need to manually enter or update account information in multiple systems. It can also improve data accuracy and enable more timely and informed client interactions.",
+        "business_impact": "Improves data accuracy, saves time, and enables more timely and informed client interactions.",
+        "implementation_difficulty": "complex"
+      },
+      {
+        "feature_name": "Schwab Automated Compliance Reporting",
+        "release_date": "2025-01",
+        "description": "This feature automates the generation of compliance reports, including those required for SEC and FINRA audits. It includes customizable templates and automatic data validation checks.",
+        "automation_value": "This feature can save time and reduce manual work by automating the complex and time-consuming task of compliance reporting. It can also help to reduce the risk of compliance violations by ensuring that reports are accurate and complete.",
+        "business_impact": "Reduces the risk of compliance violations, saves time, and reduces manual work.",
+        "implementation_difficulty": "quick"
+      }
+    ],
+    "raw_output": "1. Update Name: Schwab Intelligent Portfolios API v2.3\n   Release Date: November 2023\n   Description: The new API version provides an enhanced ability to automate portfolio management tasks. It includes new endpoints for portfolio rebalancing, tax-loss harvesting, and automatic dividend reinvestment.\n   Automation Value: This update can save time and reduce manual work by automating complex portfolio management tasks. It can also help to improve investment outcomes by enabling more timely and precise portfolio adjustments.\n\n2. Update Name: Schwab Advisor Center Workflow Automation\n   Release Date: March 2024\n   Description: This feature enables advisors to automate routine tasks such as client onboarding, account opening, and compliance checks. It includes a visual workflow builder that allows users to design and implement custom workflows.\n   Automation Value: By automating routine tasks, this feature can save advisors significant time and reduce the risk of errors. It can also improve client service by ensuring that tasks are completed promptly and consistently.\n\n3. Update Name: Schwab Integration with Salesforce CRM\n   Release Date: July 2024\n   Description: This integration allows advisors to access Schwab account information directly from Salesforce, eliminating the need to switch between systems. It also enables automatic data synchronization between Schwab and Salesforce.\n   Automation Value: This integration can save time and reduce manual work by eliminating the need to manually enter or update account information in multiple systems. It can also improve data accuracy and enable more timely and informed client interactions.\n\n4. Update Name: Schwab Automated Compliance Reporting\n   Release Date: January 2025\n   Description: This feature automates the generation of compliance reports, including those required for SEC and FINRA audits. It includes customizable templates and automatic data validation checks.\n   Automation Value: This feature can save time and reduce manual work by automating the complex and time-consuming task of compliance reporting. It can also help to reduce the risk of compliance violations by ensuring that reports are accurate and complete.",
+    "timestamp": "2025-10-07T14:30:17.274684"
+  }
+}

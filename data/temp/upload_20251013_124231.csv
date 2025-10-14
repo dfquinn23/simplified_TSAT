@@ -1,0 +1,18 @@
+Tool Name,Category,Used By,Criticality
+FactSet,Research,Portfolio Management,High
+Morningstar Direct,Research,Portfolio Management,High  
+Bloomberg Terminal,Research,Portfolio Management,High
+Microsoft Excel, Productivity, All, High
+Microsoft Teams, Communication, All, High
+Microsoft Outlook, Communication, All, High
+Microsoft SharePoint, Collaboration, All, High
+Microsoft365,Research,Portfolio Management,Medium
+Schwab PortfolioCenter,Portfolio Management,Portfolio Management,High
+Orion Eclipse,Portfolio Management,Portfolio Management,High
+Redtail CRM,CRM,Client Services,High
+RightCapital,Financial Planning,Advisors,High
+DocuSign,Operations,All,Medium
+QuickBooks Desktop,Accounting,Operations,High
+ADP Workforce Now,HR,Operations,Medium
+Charles Schwab,Custodial,Trading,High
+Fidelity Institutional,Custodial,Trading,High

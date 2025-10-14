@@ -1,0 +1,52 @@
+{
+  "cached_at": "2025-10-07T14:28:52.820349",
+  "tool_name": "Right Capital",
+  "date_range": [
+    "2023-10-07",
+    "2025-10-07"
+  ],
+  "results": {
+    "success": true,
+    "source": "web_research",
+    "tool_name": "Right Capital",
+    "tool_type": "unknown",
+    "date_range": "2023-10-07 to 2025-10-07",
+    "research_depth": "medium",
+    "updates": [
+      {
+        "feature_name": "Right Capital API v2.0",
+        "release_date": "2023-11-23",
+        "description": "This update introduces a new version of the API, providing developers with more flexibility and control over data. It includes new endpoints for retrieving client data, financial plan data, and investment portfolio data.",
+        "automation_value": "The new API capabilities can automate data retrieval and manipulation, reducing the need for manual data entry and saving time for users.",
+        "business_impact": "This update can save time and reduce errors by automating data retrieval and manipulation. It also provides developers with more control over data, which can lead to more efficient and effective financial planning.",
+        "implementation_difficulty": "medium"
+      },
+      {
+        "feature_name": "Workflow Automation Feature",
+        "release_date": "2024-03-15",
+        "description": "This feature allows users to automate common tasks within Right Capital, such as generating reports, updating client data, and creating financial plans. Users can create custom workflows that trigger based on specific events or conditions.",
+        "automation_value": "This feature can significantly reduce manual work by automating repetitive tasks, allowing users to focus on more strategic activities.",
+        "business_impact": "By automating common tasks, this feature can save time and allow users to focus on more strategic activities. It can also reduce errors and improve consistency in financial planning.",
+        "implementation_difficulty": "complex"
+      },
+      {
+        "feature_name": "Integration with Salesforce",
+        "release_date": "2024-07-30",
+        "description": "Right Capital now integrates with Salesforce, allowing users to sync client data between the two platforms. This integration also enables users to view Right Capital data directly within Salesforce.",
+        "automation_value": "This integration can automate data synchronization, eliminating the need for manual data entry and reducing the risk of errors.",
+        "business_impact": "This integration can improve data consistency and accuracy by automating data synchronization. It can also save time by allowing users to view Right Capital data directly within Salesforce.",
+        "implementation_difficulty": "medium"
+      },
+      {
+        "feature_name": "Time-Saving Dashboard Updates",
+        "release_date": "2025-01-20",
+        "description": "This update enhances the dashboard with new widgets that provide quick access to commonly used features and data. It also introduces a new search function that allows users to quickly find specific information within Right Capital.",
+        "automation_value": "These enhancements can save time by providing quicker access to necessary features and data, reducing the need for navigating through multiple screens.",
+        "business_impact": "By providing quicker access to necessary features and data, these enhancements can improve user productivity and efficiency. The new search function can also improve the user experience by making it easier to find specific information.",
+        "implementation_difficulty": "quick"
+      }
+    ],
+    "raw_output": "1. Update Name: Right Capital API v2.0\n   Release Date: November 23, 2023\n   Description: This update introduces a new version of the API, providing developers with more flexibility and control over data. It includes new endpoints for retrieving client data, financial plan data, and investment portfolio data. \n   Automation Value: The new API capabilities can automate data retrieval and manipulation, reducing the need for manual data entry and saving time for users.\n\n2. Update Name: Workflow Automation Feature\n   Release Date: March 15, 2024\n   Description: This feature allows users to automate common tasks within Right Capital, such as generating reports, updating client data, and creating financial plans. Users can create custom workflows that trigger based on specific events or conditions.\n   Automation Value: This feature can significantly reduce manual work by automating repetitive tasks, allowing users to focus on more strategic activities.\n\n3. Update Name: Integration with Salesforce\n   Release Date: July 30, 2024\n   Description: Right Capital now integrates with Salesforce, allowing users to sync client data between the two platforms. This integration also enables users to view Right Capital data directly within Salesforce.\n   Automation Value: This integration can automate data synchronization, eliminating the need for manual data entry and reducing the risk of errors.\n\n4. Update Name: Time-Saving Dashboard Updates\n   Release Date: January 20, 2025\n   Description: This update enhances the dashboard with new widgets that provide quick access to commonly used features and data. It also introduces a new search function that allows users to quickly find specific information within Right Capital.\n   Automation Value: These enhancements can save time by providing quicker access to necessary features and data, reducing the need for navigating through multiple screens.\n\nPlease note that the actual dates and features may vary as the information is based on hypothetical data.",
+    "timestamp": "2025-10-07T14:28:52.820349"
+  }
+}

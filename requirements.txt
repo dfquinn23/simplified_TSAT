@@ -21,3 +21,4 @@ streamlit==1.28.0
 # These packages give CrewAI agents the ability to actually search the web
 crewai-tools==0.2.6
 duckduckgo-search==3.9.6
+langchain-community>=0.0.20  # For DuckDuckGo search tool

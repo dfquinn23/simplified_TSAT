@@ -9,9 +9,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import json
 from crewai import Agent, Task, Crew
-from crewai_tools import ScrapeWebsiteTool
+from crewai_tools import tool, ScrapeWebsiteTool
 from langchain_openai import ChatOpenAI
-from langchain_community.tools import DuckDuckGoSearchResults
 from duckduckgo_search import DDGS
 
 from core.api_changelog_registry import APIChangelogRegistry
@@ -20,23 +19,50 @@ from core.api_changelog_registry import APIChangelogRegistry
 class SoftwareUpdateResearchAgent:
     """
     Research agent that discovers software updates and new features.
-    Now with ACTUAL web search capability using LangChain tools!
+    Now with ACTUAL web search capability!
     """
-    
+
     def __init__(self, llm_model: str = "gpt-4", cache_duration_days: int = 30):
         self.api_registry = APIChangelogRegistry()
         self.cache_dir = Path("data/research_cache")
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.cache_duration = timedelta(days=cache_duration_days)
         self.llm = ChatOpenAI(model=llm_model, temperature=0.3)
-        
-        # Initialize web search tools (LangChain tools work with CrewAI!)
-        self.search_tool = DuckDuckGoSearchResults()
+
+        # Initialize web search tools
+        self.search_tool = self._create_search_tool()
         self.scrape_tool = ScrapeWebsiteTool()
-        
+
         # Initialize CrewAI agent with search tools
         self.research_agent = self._create_research_agent()
-    
+
+    def _create_search_tool(self):
+        """Create DuckDuckGo search tool (free, no API key needed!)"""
+        @tool("Search the web")
+        def search_web(query: str) -> str:
+            """
+            Search the web using DuckDuckGo. 
+            Use this to find information about software updates, release notes, and new features.
+            Returns top search results with titles, URLs, and snippets.
+            """
+            try:
+                results = DDGS().text(query, max_results=5)
+                if not results:
+                    return "No results found for this query."
+
+                formatted = []
+                for r in results:
+                    formatted.append(
+                        f"Title: {r.get('title', 'N/A')}\n"
+                        f"URL: {r.get('href', 'N/A')}\n"
+                        f"Snippet: {r.get('body', 'N/A')}\n"
+                    )
+                return "\n---\n".join(formatted)
+            except Exception as e:
+                return f"Search error: {str(e)}"
+
+        return search_web
+
     def _create_research_agent(self) -> Agent:
         """Create research agent with web search tools"""
         return Agent(
@@ -57,29 +83,30 @@ class SoftwareUpdateResearchAgent:
             verbose=True,
             allow_delegation=False
         )
-    
+
     def _load_cache(self, tool_name: str, date_range: tuple) -> Optional[Dict]:
         """Load cached research results"""
         cache_key = f"{tool_name.lower().replace(' ', '_')}_{date_range[0]}_{date_range[1]}"
         cache_file = self.cache_dir / f"{cache_key}.json"
-        
+
         if cache_file.exists():
             try:
                 with open(cache_file, 'r', encoding='utf-8') as f:
                     data = json.load(f)
-                    cached_time = datetime.fromisoformat(data.get('cached_at', '1970-01-01'))
+                    cached_time = datetime.fromisoformat(
+                        data.get('cached_at', '1970-01-01'))
                     if datetime.now() - cached_time < self.cache_duration:
                         print(f"   💾 Using cached research for {tool_name}")
                         return data.get('results')
             except Exception as e:
                 print(f"   ⚠️ Cache load error: {e}")
         return None
-    
+
     def _save_cache(self, tool_name: str, date_range: tuple, results: Dict) -> None:
         """Save research results to cache"""
         cache_key = f"{tool_name.lower().replace(' ', '_')}_{date_range[0]}_{date_range[1]}"
         cache_file = self.cache_dir / f"{cache_key}.json"
-        
+
         try:
             with open(cache_file, 'w', encoding='utf-8') as f:
                 json.dump({
@@ -90,7 +117,7 @@ class SoftwareUpdateResearchAgent:
                 }, f, indent=2, ensure_ascii=False)
         except Exception as e:
             print(f"   ⚠️ Cache save error: {e}")
-    
+
     async def research_tool_updates(
         self,
         tool_name: str,
@@ -101,14 +128,14 @@ class SoftwareUpdateResearchAgent:
     ) -> Dict[str, Any]:
         """
         Research updates for a specific tool
-        
+
         Args:
             tool_name: Name of the tool
             tool_type: Type/category of tool (e.g., 'crm', 'portfolio_management')
             start_date: Start date for research (YYYY-MM-DD)
             end_date: End date for research (YYYY-MM-DD)
             research_depth: 'quick', 'medium', or 'deep'
-            
+
         Returns:
             Dictionary with discovered updates
         """
@@ -116,13 +143,13 @@ class SoftwareUpdateResearchAgent:
         print(f"   Type: {tool_type}")
         print(f"   Date Range: {start_date} to {end_date}")
         print(f"   Depth: {research_depth}")
-        
+
         # Check cache first
         date_range = (start_date, end_date)
         cached_results = self._load_cache(tool_name, date_range)
         if cached_results:
             return cached_results
-        
+
         # Step 1: Check if tool has API endpoint
         if self.api_registry.has_api_endpoint(tool_name):
             print(f"   ✅ Found API endpoint in registry")
@@ -134,33 +161,33 @@ class SoftwareUpdateResearchAgent:
                 print(f"   ⚠️ API research failed, falling back to web scraping")
         else:
             print(f"   ℹ️ No API endpoint found, using web research")
-        
+
         # Step 2: Web research with search tools
         web_results = await self._research_via_web(
-            tool_name, 
-            tool_type, 
-            start_date, 
-            end_date, 
+            tool_name,
+            tool_type,
+            start_date,
+            end_date,
             research_depth
         )
-        
+
         # Save to cache
         self._save_cache(tool_name, date_range, web_results)
-        
+
         return web_results
-    
+
     async def _research_via_api(
-        self, 
-        tool_name: str, 
-        start_date: str, 
+        self,
+        tool_name: str,
+        start_date: str,
         end_date: str
     ) -> Dict[str, Any]:
         """Research using API endpoint"""
         endpoint_info = self.api_registry.get_endpoint(tool_name)
-        
+
         if not endpoint_info or not endpoint_info.get('endpoint'):
             return {'success': False, 'error': 'No API endpoint available'}
-        
+
         try:
             if endpoint_info['auth_required']:
                 print(f"   ⚠️ API requires authentication - check .env for credentials")
@@ -169,7 +196,7 @@ class SoftwareUpdateResearchAgent:
                     'error': 'Authentication required but credentials not configured',
                     'needs_setup': True
                 }
-            
+
             # Placeholder for actual API call logic
             result = {
                 'success': True,
@@ -179,15 +206,15 @@ class SoftwareUpdateResearchAgent:
                 'updates_found': [],
                 'note': 'API integration not yet implemented - use web research'
             }
-            
+
             return result
-            
+
         except Exception as e:
             return {
                 'success': False,
                 'error': str(e)
             }
-    
+
     async def _research_via_web(
         self,
         tool_name: str,
@@ -200,10 +227,10 @@ class SoftwareUpdateResearchAgent:
         Research using web search tools.
         The agent now has ACTUAL search capability!
         """
-        
+
         year_start = start_date.split('-')[0]
         year_end = end_date.split('-')[0]
-        
+
         research_task = Task(
             description=f'''Research software updates for {tool_name} from {year_start} to {year_end}.
 
@@ -261,17 +288,17 @@ CRITICAL RULES:
             agent=self.research_agent,
             expected_output=f'List of verified updates with source URLs, or honest statement that no public updates were found'
         )
-        
+
         crew = Crew(
             agents=[self.research_agent],
             tasks=[research_task],
             verbose=True
         )
-        
+
         try:
             print(f"   🔍 Researching {tool_name} with web search...")
             research_output = crew.kickoff()
-            
+
             # Parse the output
             structured_updates = self._parse_agent_output(
                 research_output,
@@ -280,7 +307,7 @@ CRITICAL RULES:
                 start_date,
                 end_date
             )
-            
+
             return {
                 'success': True,
                 'source': 'web_search',
@@ -292,7 +319,7 @@ CRITICAL RULES:
                 'raw_output': str(research_output),
                 'timestamp': datetime.now().isoformat()
             }
-            
+
         except Exception as e:
             print(f"   ❌ Research failed: {str(e)}")
             return {
@@ -301,7 +328,7 @@ CRITICAL RULES:
                 'tool_name': tool_name,
                 'updates': []
             }
-    
+
     def _parse_agent_output(
         self,
         agent_output: Any,
@@ -315,7 +342,7 @@ CRITICAL RULES:
         Returns empty list if no updates found.
         """
         output_text = str(agent_output)
-        
+
         # Check if agent explicitly said no updates found
         no_updates_patterns = [
             'no public updates found',
@@ -325,33 +352,33 @@ CRITICAL RULES:
             'no public changelog',
             'no verifiable updates'
         ]
-        
+
         if any(pattern in output_text.lower() for pattern in no_updates_patterns):
             print(f"   ℹ️  Agent found no public updates for {tool_name}")
             return []
-        
+
         # Try to extract structured updates
         updates = []
-        
+
         # Look for the structured format we asked for
         sections = output_text.split('---')
-        
+
         for section in sections:
             if not section.strip():
                 continue
-            
+
             update = {}
             lines = section.split('\n')
-            
+
             for line in lines:
                 line = line.strip()
                 if not line or ':' not in line:
                     continue
-                
+
                 key, value = line.split(':', 1)
                 key = key.strip().lower()
                 value = value.strip()
-                
+
                 if 'feature' in key or 'name' in key:
                     update['feature_name'] = value
                 elif 'date' in key or 'released' in key:
@@ -362,11 +389,11 @@ CRITICAL RULES:
                     update['description'] = value
                 elif 'automation' in key or 'value' in key:
                     update['automation_value'] = value
-            
+
             # Only add if we have at least a feature name
             if update.get('feature_name'):
                 updates.append(update)
-        
+
         # If no structured parsing worked, try the old method
         if not updates:
             # Use AI to structure the findings
@@ -399,15 +426,15 @@ CRITICAL RULES:
                     agent=self.research_agent,
                     expected_output='JSON formatted list of structured update records'
                 )
-                
+
                 crew = Crew(
                     agents=[self.research_agent],
                     tasks=[analysis_task],
                     verbose=False
                 )
-                
+
                 analysis_output = crew.kickoff()
-                
+
                 # Try to parse as JSON
                 try:
                     parsed_updates = json.loads(str(analysis_output))
@@ -417,14 +444,14 @@ CRITICAL RULES:
                     pass
             except Exception as e:
                 print(f"   ⚠️ Analysis parsing error: {e}")
-        
+
         if not updates:
             print(f"   ⚠️  Could not parse structured updates from agent output")
         else:
             print(f"   ✅ Extracted {len(updates)} updates for {tool_name}")
-        
+
         return updates
-    
+
     async def research_tool_stack(
         self,
         tools: List[Dict],
@@ -434,26 +461,26 @@ CRITICAL RULES:
     ) -> Dict[str, Any]:
         """
         Research updates for an entire tool stack
-        
+
         Args:
             tools: List of tools with 'name' and 'type' keys
             start_date: Start date (YYYY-MM-DD)
             end_date: End date (YYYY-MM-DD)
             research_depth: 'quick', 'medium', or 'deep'
-            
+
         Returns:
             Dictionary with all research results
         """
         print(f"\n🔬 Starting research for {len(tools)} tools")
         print(f"   Date Range: {start_date} to {end_date}")
         print(f"   Research Depth: {research_depth}")
-        
+
         results = {}
-        
+
         for tool in tools:
             tool_name = tool.get('name', tool.get('Tool Name', ''))
             tool_type = tool.get('type', tool.get('Tool Type', 'unknown'))
-            
+
             try:
                 research_result = await self.research_tool_updates(
                     tool_name=tool_name,
@@ -463,17 +490,17 @@ CRITICAL RULES:
                     research_depth=research_depth
                 )
                 results[tool_name] = research_result
-                
+
                 # Brief pause to avoid rate limiting
                 await asyncio.sleep(1)
-                
+
             except Exception as e:
                 print(f"   ❌ Error researching {tool_name}: {e}")
                 results[tool_name] = {
                     'success': False,
                     'error': str(e)
                 }
-        
+
         return {
             'total_tools': len(tools),
             'successful': len([r for r in results.values() if r.get('success')]),
@@ -503,7 +530,7 @@ async def research_tool_updates(
 if __name__ == "__main__":
     async def test_research():
         agent = SoftwareUpdateResearchAgent()
-        
+
         # Test with a single tool
         result = await agent.research_tool_updates(
             tool_name="Microsoft 365",
@@ -512,9 +539,9 @@ if __name__ == "__main__":
             end_date="2025-10-01",
             research_depth="medium"
         )
-        
+
         print("\n" + "="*60)
         print("📊 Research Results:")
         print(json.dumps(result, indent=2))
-    
+
     asyncio.run(test_research())
